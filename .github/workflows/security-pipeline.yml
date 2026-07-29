@@ -7,13 +7,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-  secrets-scan:
+secrets-scan:
     name: 1. Secrets Detection (Gitleaks)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v3
         env:
