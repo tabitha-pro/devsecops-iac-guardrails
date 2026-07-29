@@ -1,0 +1,21 @@
+provider "aws" {
+  region = "ca-central-1"
+}
+
+# Intentional Misconfiguration: Unencrypted S3 bucket
+resource "aws_s3_bucket" "insecure_bucket" {
+  bucket = "jane-app-demo-insecure-bucket"
+}
+
+# Intentional Misconfiguration: Security group open to 0.0.0.0/0
+resource "aws_security_group" "insecure_sg" {
+  name        = "allow_all_traffic"
+  description = "Insecure SG open to the world"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
